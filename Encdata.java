@@ -27,8 +27,8 @@ import org.apache.commons.codec.binary.Base64;
 
 public class Encdata {
 
-	  public static final String ENCRYPT_KEY = "";
-	  public static final String ENCRYPT_IV = "";
+	 private static String ENCRYPT_KEY = ""; 
+	 private static String ENCRYPT_IV = "";
 
 	/**
 	 * メインメソッド
@@ -37,12 +37,56 @@ public class Encdata {
 	 * @throws IOException 
 	 */
 	public static void main(String[] args) throws IOException {
+		System.out.println("暗号化復号化ツールを実行しいます。");
+		if(args.length == 5) {
+			System.out.println("引数の数が不正です。６つ指定してください");
+			System.exit(0);
+		}
 		
-		String filename = "aa";
-		// 暗号化メソッド呼出
-		//write(encrypt(inputfile_base64("D:\\down\\tmp\\enc\\" + filename).toString()),"D:\\down\\tmp\\enc\\" + filename + ".txt");
-		// 復号化メソッド呼出
-		dec_base64(decrypt(read("D:\\down\\tmp\\enc\\" + filename + ".txt")),"D:\\down\\tmp\\dec\\" + filename + ".xlsx");
+		if(args[0].trim().length() == 0) {
+			System.out.println("第１引数の読み込みファイルが指定されていません。");
+			System.exit(0);
+		}
+		if(args[1].trim().length() == 0) {
+			System.out.println("第２引数の出力先が指定されていません。");
+			System.exit(0);
+		}
+		if(args[2].trim().length() == 0) {
+			System.out.println("第３引数の出力ファイル名が指定されていません。");
+			System.exit(0);
+		}
+		
+		if(args[3].trim().length() == 0) {
+			System.out.println("第3引数のモードが指定されていません。");
+			System.exit(0);
+		}
+		
+		if(args[4].trim().length() == 0) {
+			System.out.println("第４引数の暗号・複合キーが指定されていません。");
+			System.exit(0);
+		}
+		
+		if(args[5].trim().length() == 0) {
+			System.out.println("第５引数の暗号・複合IVが指定されていません。");
+			System.exit(0);
+		}
+		
+		
+		String inputfilepath = args[0];
+		String outputfilepath = args[1];
+		String outputfilename = args[2];
+		String mode = args[3];
+		ENCRYPT_KEY = args[4];
+		ENCRYPT_IV = args[5];
+
+		
+		if(mode.equals("0")) {
+			// 復号化メソッド呼出
+			dec_base64(decrypt(read(inputfilepath)),outputfilepath + "\\" +outputfilename);
+		}else {
+			// 暗号化メソッド呼出
+			write(encrypt(inputfile_base64(inputfilepath).toString()),outputfilepath + "\\" +outputfilename);
+		}
 	}
 
 	private static String read(String readfilepath) throws IOException {
