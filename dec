@@ -1,0 +1,1 @@
+certutil -f -decode "D:\down\aa\a.txt" "D:\down\aa\markedjviewer.jar"
