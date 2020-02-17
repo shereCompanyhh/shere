@@ -1,0 +1,1 @@
+$i=0; cat D:\down\MarkCat-win32-x64.zip_base64.txt -ReadCount 190000 | % { $_ > test$i.txt;$i++ }
